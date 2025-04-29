@@ -4,7 +4,7 @@ Dilinize uygun olanı seçiniz. || Choose your language.
 -[Türkçe/Turkish](#Türkçe/Turkish)
 -[English/İngilizce](#English/İngilizce)
 
-#Türkçe/Turkish
+# Türkçe/Turkish
 # <center>Fikstür Oluşturma Ödevi</center>
 
 Verilen bir takimlar.txt dosyasından alınan takımları her hafta eşleştirerek aralarında maçlar oynatan ve sonuçlara göre bir puan tablosu oluşturan bir C kodudur. Maç skorları, takımların güç farklarına bağlı olarak belirlenmektedir.
@@ -121,7 +121,7 @@ gcc -o fikstur.o fikstur.c
 - Değişkenler daha evrensel olması için ingilizce değiştirildi.
 
 
-#English/İngilizce
+# English/İngilizce
 
 # <center>Fixture Generation Assignment</center>
 
