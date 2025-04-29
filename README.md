@@ -12,13 +12,14 @@ Verilen bir takimlar.txt dosyasından alınan takımları her hafta eşleştirer
 
 
 ## İçindekiler
--[Proje Gereksinimleri](#Proje-Gereksinimleri)
--[El İle Koşturma](#El-ile-Koşturma)
--[El ile Derleme](#El-ile-Derleme)
--[Kodu Derleme](#Kodu-Derleme)
--[Dosya Formatı](#Dosya-Formatı)
--[Dikkat Edilmesi Gerekenler](#Dikkat-Edilmesi-Gerekenler)
--[Yenilikler](#Yenilikler)
+- [Proje Gereksinimleri](#proje-gereksinimleri)  
+- [El İle Koşturma](#el-ile-koşturma)  
+- [El ile Derleme](#el-ile-derleme)  
+- [Kodu Derleme](#kodu-derleme)  
+- [Dosya Formatı](#dosya-formatı)  
+- [Dikkat Edilmesi Gerekenler](#dikkat-edilmesi-gerekenler)  
+- [Yenilikler](#yenilikler)
+
 
 ## Proje Gereksinimleri
 
