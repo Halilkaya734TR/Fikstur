@@ -8,7 +8,7 @@ Dilinize uygun olanı seçiniz. || Choose your language.
 # Turkish
 # <center>Fikstür Oluşturma Ödevi</center>
 
-Verilen bir takimlar.txt dosyasından alınan takımları her hafta eşleştirerek aralarında maçlar oynatan ve sonuçlara göre bir puan tablosu oluşturan bir C kodudur. Maç skorları, takımların güç farklarına bağlı olarak belirlenmektedir.
+Verilen bir `takimlar.txt` dosyasından alınan takımları her hafta eşleştirerek aralarında maçlar oynatan ve sonuçlara göre bir puan tablosu oluşturan bir C kodudur. Maç skorları, takımların güç farklarına bağlı olarak belirlenmektedir.
 
 
 ## İçindekiler
@@ -97,7 +97,7 @@ gcc -o fikstur.o fikstur.c
 
 ### Fikstur Çıktı Dosyası
 
-- Örnek olarak bir tane fikstur.txt dosyası konulmuştur.
+- Örnek olarak bir tane `fikstur.txt` dosyası konulmuştur.
 
 ### Power Dosyası
 ```
@@ -108,7 +108,7 @@ gcc -o fikstur.o fikstur.c
 
 ### Puan Dosyası
 
-- Örnek olarak bir tane puanlar.txt dosyası konulmuştur.
+- Örnek olarak bir tane `puanlar.txt` dosyası konulmuştur.
 
 ## Dikkat Edilmesi Gerekenler
 
@@ -119,8 +119,9 @@ gcc -o fikstur.o fikstur.c
 
 ## Yenilikler 29.04.2024
 
-- puanlar.txt de takım karışıklığı olmaması için puanlar en yüksekten en düşüğe göre sıralandı.
+- `puanlar.txt` de takım karışıklığı olmaması için puanlar en yüksekten en düşüğe göre sıralandı.
 - Değişkenler daha evrensel olması için ingilizce değiştirildi.
+- İngilizce ReadMe Eklendi.
 
 
 
@@ -243,3 +244,4 @@ Example format:
 
 - In `puanlar.txt`, teams are now sorted from highest to lowest points to avoid confusion.
 - Variable names have been updated to English for better general understanding.
+- English README has been added.
