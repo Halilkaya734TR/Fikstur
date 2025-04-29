@@ -18,7 +18,7 @@ Verilen bir `takimlar.txt` dosyasından alınan takımları her hafta eşleştir
 - [Kodu Derleme](#kodu-derleme)  
 - [Dosya Formatı](#dosya-formatı)  
 - [Dikkat Edilmesi Gerekenler](#dikkat-edilmesi-gerekenler)  
-- [Yenilikler](#yenilikler)
+- [Yenilikler](#yenilikler-29042024)
 
 
 ## Proje Gereksinimleri
@@ -136,13 +136,13 @@ gcc -o fikstur.o fikstur.c
 This is a C program that reads team names from a given `takimlar.txt` file, matches them weekly, simulates matches, and generates a points table based on the results. Match scores are determined randomly according to the power differences between teams.
 
 ## Table of Contents
--[Project Requirements](#project-requirements)  
--[Manual Execution](#manual-execution)  
--[Manual Compilation](#manual-compilation)  
--[Compiling the Code](#compiling-the-code)  
--[File Format](#file-format)  
--[Important Notes](#important-notes)  
--[Changelog](#changelog)
+- [Project Requirements](#project-requirements)  
+- [Manual Execution](#manual-execution)  
+- [Manual Compilation](#manual-compilation)  
+- [Compiling the Code](#compiling-the-code)  
+- [File Format](#file-format)  
+- [Important Notes](#important-notes)  
+- [Changelog](#changelog-29042024)
 
 ## Project Requirements
 
