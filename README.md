@@ -1,4 +1,4 @@
-#Dil || Language
+# <center> Dil || Language </center>
 Dilinize uygun olanı seçiniz. || Choose your language.
 
 -[Türkçe/Turkish](#Türkçe/Turkish)
