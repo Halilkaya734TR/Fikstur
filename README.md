@@ -1,6 +1,23 @@
+#Dil || Language
+Dilinize uygun olanı seçiniz. || Choose your language.
+
+-[Türkçe/Turkish](#Türkçe/Turkish)
+-[English/İngilizce](#English/İngilizce)
+
+#Türkçe/Turkish
 # <center>Fikstür Oluşturma Ödevi</center>
 
-Verilen dosyadan takımları alıp o takımları eşleştirip, eşlesen takımları dosyaya yazan C kodu.
+Verilen bir takimlar.txt dosyasından alınan takımları her hafta eşleştirerek aralarında maçlar oynatan ve sonuçlara göre bir puan tablosu oluşturan bir C kodudur. Maç skorları, takımların güç farklarına bağlı olarak belirlenmektedir.
+
+
+## İçindekiler
+-[Proje Gereksinimleri](#Proje-Gereksinimleri)
+-[El İle Koşturma](#El-ile-Koşturma)
+-[El ile Derleme](#El-ile-Derleme)
+-[Kodu Derleme](#Kodu-Derleme)
+-[Dosya Formatı](#Dosya-Formatı)
+-[Dikkat Edilmesi Gerekenler](#Dikkat-Edilmesi-Gerekenler)
+-[Yenilikler](#Yenilikler)
 
 ## Proje Gereksinimleri
 
@@ -94,13 +111,128 @@ gcc -o fikstur.o fikstur.c
 ## Dikkat Edilmesi Gerekenler
 
 - Takımlar dosyasını örnek dosya formatında olması gerek yoksa hata verebilir.
-- Takım eşlesmelerinde rastgele olduğundan 38 haftada 2 farklı takım birlikte ikiden fazla maç yapmış olabiliyor. (Algoritma bulsamda kodsal olarak nasıl yapacağımı bulamadım.)
+- Takım eşlesmelerinde rastgele olduğundan 38 haftada 2 farklı takım birlikte ikiden fazla maç yapmış olabiliyor. (Çözüm aranıyor.)
 - Güç aralığını farkını en fazla 50 olması ve güç sayısı 10 nun katları olmalı. (90 80 70 60 50 40 kullanılmıştır.)
-- Bay geçen takım bazen aynı takım olabiliyor.(Sorunu çözemedim.)
+- Bay geçen takım bazen aynı takım olabiliyor.(Sorun çözümü deneniyor.)
 
-## Yenilikler
+## Yenilikler 29.04.2024
 
-- Takımlar maçlarda gol atabiliyor. Power farkına göre olasılıklar değişiyor.
-- Kazanılan, Kaybedilen ve berabere kalınan maç sayısı eklendi.
-- Atılan gol, yenilen gol ve averaj eklendi.
-- Maç skorlarına göre puan sistemi, kimin şampiyon olduğu ve bütün takımların istatistikleri bulunan puanlar.txt eklendi.
+- puanlar.txt de takım karışıklığı olmaması için puanlar en yüksekten en düşüğe göre sıralandı.
+- Değişkenler daha evrensel olması için ingilizce değiştirildi.
+
+
+#English/İngilizce
+
+# <center>Fixture Generation Assignment</center>
+
+This is a C program that reads team names from a given `takimlar.txt` file, matches them weekly, simulates matches, and generates a points table based on the results. Match scores are determined randomly according to the power differences between teams.
+
+## Table of Contents
+-[Project Requirements](#project-requirements)  
+-[Manual Execution](#manual-execution)  
+-[Manual Compilation](#manual-compilation)  
+-[Compiling the Code](#compiling-the-code)  
+-[File Format](#file-format)  
+-[Important Notes](#important-notes)  
+-[Changelog](#changelog)
+
+## Project Requirements
+
+### Compilation Tools
+
+```
+gcc
+```
+
+## Supported Operating Systems
+
+- Windows  
+- Linux  
+
+## Manual Execution
+
+### Windows
+
+```
+./fikstur.exe
+```
+
+### Linux
+
+```
+./fikstur.o
+```
+
+## Manual Compilation
+
+### Installing Requirements
+
+#### Fedora
+
+```
+sudo dnf install gcc
+```
+
+#### Ubuntu
+
+```
+sudo apt-get install gcc
+```
+
+#### Windows
+
+```
+Mingw64-gcc
+```
+
+## Compiling the Code
+
+#### Windows
+```
+gcc -o fikstur.exe fikstur.c
+```
+
+#### Linux
+```
+gcc -o fikstur.o fikstur.c
+```
+
+## File Format
+
+### Teams File
+
+Example format:
+
+```
+(Team Name)
+(Team Name)
+(Team Name)
+(Team Name)
+```
+
+### Fixture Output File
+
+- An example `fikstur.txt` file is included.
+
+### Power File
+```
+(number)
+(number)
+(number)
+```
+
+### Points File
+
+- An example `puanlar.txt` file is included.
+
+## Important Notes
+
+- The teams file must follow the example format; otherwise, the program may throw an error.
+- Due to the randomness in match pairings, some teams may play each other more than twice over 38 weeks. (A fix is being worked on.)
+- The power range difference should not exceed 50, and power values should be multiples of 10. (90, 80, 70, 60, 50, 40 are used.)
+- The same team may sometimes get a bye multiple times. (A solution is in progress.)
+
+## Changelog 29.04.2024
+
+- In `puanlar.txt`, teams are now sorted from highest to lowest points to avoid confusion.
+- Variable names have been updated to English for better general understanding.
