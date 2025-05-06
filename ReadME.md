@@ -1,5 +1,5 @@
 # Available Languages: 
-[English](README.md) | [Türkçe](README.tr.md)
+[English](README.eng.md) | [Türkçe](README.md)
 
 # <center>Fikstür Oluşturma Ödevi</center>
 
