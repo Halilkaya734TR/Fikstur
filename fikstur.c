@@ -14,13 +14,13 @@ int goalScored[19] = {0};
 int goalConceded[19] = {0};
 int average[19] = {0};
 
-void siralama() // Takımları puanlarına göre sıralama yapar. (Yeni Eklendi.)
+void siralama() // Takımları puanlarına göre sıralama yapar.
 {
     for(int i=0; i<=18; i++)
     {
         for(int j= i+1; j<=18; j++)
         {
-            if(points[i]  < points[j] || points[i] == points[j] && average[i] < average[j])
+            if(points[i] < points[j] || points[i] == points[j] && average[i] < average[j])
             {
                 int temp = points[i];
                 points[i] = points[j];
@@ -56,215 +56,239 @@ void siralama() // Takımları puanlarına göre sıralama yapar. (Yeni Eklendi.
                 strcpy(teams[j], tempTeams);
             }
         }
+    }
+    yazdirma();
+}
 
+void macSonuclari(int home, int away, FILE *dosya) //Maçta atılan golları vb. hesaplar.
+{
+    int goalsHome, goalsAway;
+    int difference = ((power[home] - power[away]) /10) +5; //Güç farkını hesaplar ve o farkla skor olasılıkları belirlenir.
+    switch (difference)
+    {
+     case 0:
+        goalsHome = rand() % 2;
+        goalsAway = rand() % 6;
+        break;
+     case 1:
+        goalsHome = rand() % 2;
+        goalsAway = rand() % 5;
+        break;
+    case 2:
+        goalsHome = rand() % 2;
+        goalsAway = rand() % 4;
+        break;
+    case 3:
+        goalsHome = rand() % 2;
+        goalsAway = rand() % 4;
+        break;
+    case 4:
+        goalsHome = rand() % 3;
+        goalsAway = rand() % 4;
+        break;
+    case 5:
+        goalsHome = rand() % 3;
+        goalsAway = rand() % 3;
+        break;
+    case 6:
+        goalsHome = rand() % 4;
+        goalsAway = rand() % 3;
+        break;
+    case 7:
+        goalsHome = rand() % 4;
+        goalsAway = rand() % 2;
+        break;
+    case 8:
+        goalsHome = rand() % 4;
+        goalsAway = rand() % 2;
+        break;
+    case 9:
+        goalsHome = rand() % 5;
+        goalsAway = rand() % 2;
+        break;
+    case 10:
+        goalsHome = rand() % 6;
+        goalsAway = rand() % 2;
+        break;
     }
 
+    goalScored[home] += goalsHome;
+    goalConceded[home] += goalsAway; 
+    goalScored[away] += goalsAway; 
+    goalConceded[away] += goalsHome;
+    
+    if(goalsHome > goalsAway)
+    {
+        points[home] +=3;
+        win[home] += 1;
+        lose[away] +=1;
+    }
+    else if(goalsHome < goalsAway)
+    {
+        points[away] +=3;
+        win[away] += 1;
+        lose[home] +=1;
+    }
+    else
+    {
+        points[home] +=1;
+        points[away] +=1;
+        draw[home] +=1;
+        draw[away] +=1;
+    }
+    
+    printf(" %s %d X %d %s \n", teams[home], goalsHome, goalsAway, teams[away]);
+    fprintf(dosya, " %s %d X %d %s \n", teams[home], goalsHome, goalsAway, teams[away]);
 }
-void fikstur() //fikstür eşlestirmesi yapıyor.
+
+int fikstur() //fikstür eşlestirmesi yapıyor.
 {
     int home, away;
     int matchUp[19] = {0}; // 0 olması eşlenmemiş olduğunu gösterir.
+    int firstHalfMatches[19][2]; // İlk 19 maç ile son 19 maç aynı olsun diye.
+    int byeTeams[19]; // Bay geçen takımları sırasıyla kaydeder.
+    int byeIndex = 0; // Bay geçen takım sayacı.
     srand(time(NULL));
     FILE *dosya = fopen("fikstur.txt", "w"); // Fikstür dosyasını write modunda açar.
     if(dosya == NULL)
     {
         printf("fikstur.txt dosyasi acilamadi!"); //fikstür dosyası bulunmazsa hata yazısı yazdırır.
         fclose(dosya);
+        return 1;
     }
-    else
-    {
-        for(int week = 1; week <= 38; week++)  //38 hafta için döngü oluşturur.
-        {   int matchUp[19] = {0}; // Her haftada takımların seçilmemiş olarak değiştirir.
+    
+    // İlk 19 hafta maçları eşleştirir.
+    for(int week = 1; week <= 19; week++)  
+    {   
+        for(int i = 0; i < 19; i++)
+        {
+            matchUp[i] = 0;  // Her hafta başında tüm takımları eşleşmemiş olarak işaretler
+        }
 
-            printf("\n  %d. Hafta \n", week); // Kaçıncı haftada olunduğunu yazar.
-            fprintf(dosya, "\n  %d. Hafta \n", week); //Aynısını dosyaya yazdırır.
+        printf("\n  %d. Hafta \n", week);
+        fprintf(dosya, "\n  %d. Hafta \n", week);
 
-            byeTeam = rand() % 19; //Bay geçen takımı rastgele seçer.
-            printf("Bu hafta bay gecen takim: %s\n", teams[byeTeam]); //Bay geçen takımı yazar.
-            fprintf(dosya, "Bu hafta bay gecen takim: %s\n", teams[byeTeam]); // Bay geçen takımı dosyaya yazar.
+        if(week == 1) // İlk hafta ise direkt seçer.
+        {
+            byeTeam = rand() % 19;             
+        } 
+        else 
+        {
+            do 
+            {
+                byeTeam = rand() % 19;                 
+            } while(matchUp[byeTeam] == 1); //Sonraki haftalarda seçilmemiş kontrol eder.
+        }
+        
+        byeTeams[byeIndex++] = byeTeam; // Bay geçen takım sayısında sorun olmaması için.
+        matchUp[byeTeam] = 1;
 
-        matchUp[byeTeam] = 1; // Eşlenmemesi için 1 verilir. (Yani seçilmiş yapar.)
+        printf("Bu hafta bay gecen takim: %s\n", teams[byeTeam]);
+        fprintf(dosya, "Bu hafta bay gecen takim: %s\n", teams[byeTeam]);
+
         for(int matchCount = 0; matchCount < 9; matchCount++) 
         {
-            do
+            do 
             {
-                home = rand() % 19; // Ev takımı olan maçları eşleştirir.
-            }
-            while(matchUp[home] == 1);
+                home = rand() % 19;    
+            } while(matchUp[home] == 1);
 
             matchUp[home] = 1;
             
             do
             {
-                away = rand() % 19; // Deplasman takımı olan maçları eşleştirir.
-            }
-            while(matchUp[away] == 1);
+                away = rand() % 19;   
+            } while(matchUp[away] == 1);
             
-            int goalsHome, goalsAway; //Ev ve deplasmanın gol sayılarını tutar.
             matchUp[away] = 1;
-            int difference = power[home] - power[away]; //Güç farkını hesaplar ve o farkla skor olasılıkları belirlenir.
-            if(difference == 0)
-            {
-                goalsHome = rand() % 3;
-                goalsAway = rand() % 3;
             
-            }
-            else if(difference == 10)
-            {
-                goalsHome = rand() % 4;
-                goalsAway = rand() % 3;
-            
-            }
-            else if(difference == 20)
-            {
-                goalsHome = rand() % 4;
-                goalsAway = rand() % 2;
-            
-            }
-            else if(difference == 30)
-            {
-                goalsHome = rand() % 4;
-                goalsAway = rand() % 2;
-            
-            }
-            else if(difference == 40)
-            {
-                goalsHome = rand() % 5;
-                goalsAway = rand() % 2;
-            
-            }
-            else if(difference == 50)
-            {
-                goalsHome = rand() % 6;
-                goalsAway = rand() % 2;
-            
-            }
-            else if(difference == -10)
-            {
-                goalsHome = rand() % 3;
-                goalsAway = rand() % 4;
-            
-            }
-            else if(difference == -20)
-            {
-                goalsHome = rand() % 2;
-                goalsAway = rand() % 4;
-            
-            }
-            else if(difference == -30)
-            {
-                goalsHome = rand() % 2;
-                goalsAway = rand() % 4;
-            
-            }
-            else if(difference == -40)
-            {
-                goalsHome = rand() % 2;
-                goalsAway = rand() % 5;
-            
-            }
-            else if(difference == -50)
-            {
-                goalsHome = rand() % 2;
-                goalsAway = rand() % 6;
-            
-            }
-            goalScored[home] += goalsHome;  //Atılan ve yenilen golleri kaydeder.
-            goalConceded[home] += goalsAway; 
-            goalScored[away] += goalsAway; 
-            goalConceded[away] += goalsHome;
-            if(goalsHome > goalsAway) //Gollere göre puan verilir.
-            {
-                points[home] +=3;
-                win[home] += 1;
-                lose[away] +=1;
-            }
-            else if(goalsHome < goalsAway)
-            {
-                points[away] +=3;
-                win[away] += 1;
-                lose[home] +=1;
-            }
-            else
-            {
-                points[home] +=1;
-                points[away] +=1;
-                draw[home] = +1;
-                draw[away] =+1;
-            }
-            printf(" %s %d X %d %s \n", teams[home], goalsHome, goalsAway, teams[away]); //Takım maçını ve skoru konsola yazdırır.
-            fprintf(dosya, " %s %d X %d %s \n", teams[home], goalsHome, goalsAway, teams[away]); //Aynısını fikstür.txt yazdırır.
-            
+            firstHalfMatches[matchCount][0] = home;   
+            firstHalfMatches[matchCount][1] = away;
+            macSonuclari(home, away, dosya);      
         }
-        }
-        fclose(dosya);
-        siralama();
-        
-        FILE *dosya = fopen("puanlar.txt", "w"); //puanlar için puanlar.txt açar.
-        if(dosya == NULL)
+    }
+
+    // Son 19 hafta maçları ilk 19 haftayla aynı.
+    for(int week = 20; week <= 38; week++)    
+    {   
+        printf("\n  %d. Hafta \n", week);
+        fprintf(dosya, "\n  %d. Hafta \n", week);
+
+        byeTeam = byeTeams[week - 20];
+        printf("Bu hafta bay gecen takim: %s\n", teams[byeTeam]);
+        fprintf(dosya, "Bu hafta bay gecen takim: %s\n", teams[byeTeam]);
+
+        for(int matchCount = 0; matchCount < 9; matchCount++) 
         {
-            printf("puanlar.txt dosyasi acilamadi!"); //Açılmazsa hata kodu verir.
-            fclose(dosya);
+            away = firstHalfMatches[matchCount][0];
+            home = firstHalfMatches[matchCount][1];
+            macSonuclari(home, away, dosya);
         }
-        else
-        {
-            for(int i=0; i<19; i++) //Takımların istatistiklerini yazdırır.
-            {   
-            
-                average[i] = goalScored[i] - goalConceded[i]; //Averaj hesaplar.
-                printf("%s G:%d B:%d M:%d AG:%d YG:%d A:%d Puan:%d\n",teams[i],win[i],draw[i],lose[i],goalScored[i],goalConceded[i],average[i],points[i]);
-                fprintf(dosya, "%s G:%d B:%d M:%d AG:%d YG:%d A:%d Puan:%d\n",teams[i],win[i],draw[i],lose[i],goalScored[i],goalConceded[i],average[i],points[i]);
-            }
+    }
+    fclose(dosya);
+    siralama();
+}
         
-            int champion=0;
-        
-            for(int i=1; i<19; i++) //Şampiyonun kim olduğunu belirler.
-            {
-            
-                if(points[champion] < points[i])
-                champion = i;
-            
-            }
-        
-            printf("%d puan ile ŞAMPİYON %s",points[champion],teams[champion]); //Şampiyonu konsola yazdırır
-            fprintf(dosya, "%d puan ile ŞAMPİYON %s",points[champion],teams[champion]); //Dosyaya yazdırır.
-        }
+int yazdirma()
+{
+    FILE *dosya = fopen("puanlar.txt", "w"); //puanlar için puanlar.txt açar.
+    if(dosya == NULL)
+    {
+        printf("puanlar.txt dosyasi acilamadi!"); //Açılmazsa hata kodu verir.
         fclose(dosya);
+        return 1;
+    }
+    
+    for(int i=0; i<19; i++) //Takımların istatistiklerini yazdırır.
+    {   
+        average[i] = goalScored[i] - goalConceded[i]; //Averaj hesaplar.
+        printf("%s G:%d B:%d M:%d AG:%d YG:%d A:%d Puan:%d\n",teams[i],win[i],draw[i],lose[i],goalScored[i],goalConceded[i],average[i],points[i]);
+        fprintf(dosya, "%s G:%d B:%d M:%d AG:%d YG:%d A:%d Puan:%d\n",teams[i],win[i],draw[i],lose[i],goalScored[i],goalConceded[i],average[i],points[i]);
+    }
+        
+    int champion=0;
+        
+    for(int i=1; i<19; i++) //Şampiyonun kim olduğunu belirler.
+    {
+        if(points[champion] < points[i])
+        champion = i;
+    }
+        
+    printf("%d puan ile ŞAMPİYON %s",points[champion],teams[champion]); //Şampiyonu konsola yazdırır
+    fprintf(dosya, "%d puan ile ŞAMPİYON %s",points[champion],teams[champion]); //Dosyaya yazdırır.
+        
+    fclose(dosya);
 }
-}
+
 
 int main()
 {
-    FILE *dosya = fopen("takimlar.txt","r");
-    if(dosya == NULL)
+    FILE *teamsfile = fopen("takimlar.txt","r");
+    if(teamsfile == NULL)
     {
         printf("takimlar.txt dosyasi acilamadi!"); // Dosya açılmazsa hata kodu verir.
-        fclose(dosya);
+        fclose(teamsfile);
+        return 1;
     }
-    else
-    {
-        for(int i=0; i<19; i++)
-        {
-            fgets(teams[i], 40, dosya); //Dosyadaki takımları takimlar değişkenine atar.
-        } 
-        fclose(dosya); 
-        FILE *dosya = fopen("power.txt","r"); //powerdosyasını açar
-        if(dosya == NULL)
-        {
-            printf("power.txt dosyasi acilamadi!"); //Açılmazsa hata verir.
-            fclose(dosya);
-        }
-        else
-        {
-            for(int i=0; i<19; i++)
-            {
-            fscanf(dosya, "%d", &power[i]); //Güç değerlerini power dizisine atar.
-            } 
-            
-            fclose(dosya); 
-            fikstur();
-        }
 
+    for(int i=0; i<19; i++)
+    {
+        fgets(teams[i], 40, teamsfile); //Dosyadaki takımları takimlar değişkenine atar.
+    } 
+    fclose(teamsfile); 
+        
+    FILE *powerFile = fopen("power.txt","r"); //power dosyasını açar
+    if(powerFile == NULL)
+    {
+        printf("power.txt dosyasi acilamadi!"); //Açılmazsa hata verir.
+        fclose(powerFile);
+        return 1;
     }
-    
+        
+    for(int i=0; i<19; i++)
+    {
+        fscanf(powerFile, "%d", &power[i]); //Güç değerlerini power dizisine atar.
+    } 
+    fclose(powerFile); 
+    fikstur();
 }
