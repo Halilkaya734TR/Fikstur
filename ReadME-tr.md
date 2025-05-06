@@ -1,3 +1,6 @@
+# Available Languages: 
+[English](README.md) | [Türkçe](README.tr.md)
+
 # <center>Fikstür Oluşturma Ödevi</center>
 
 Verilen bir `takimlar.txt` dosyasından alınan takımları her hafta eşleştirerek aralarında maçlar oynatan ve sonuçlara göre bir puan tablosu oluşturan bir C kodudur. Maç skorları, takımların güç farklarına bağlı olarak belirlenmektedir.
