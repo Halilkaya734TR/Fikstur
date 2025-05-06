@@ -1,5 +1,5 @@
 # Available Languages: 
-[English](README.eng.md) | [Türkçe](README.md)
+[English](ReadME.eng.md) | [Türkçe](ReadME.md)
 
 # <center>Fixture Generation Assignment</center>
 
