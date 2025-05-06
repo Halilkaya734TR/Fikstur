@@ -1,3 +1,6 @@
+# Available Languages: 
+[English](README.md) | [Türkçe](README.tr.md)
+
 # <center>Fixture Generation Assignment</center>
 
 This is a C program that reads team names from a given `takimlar.txt` file, matches them weekly, simulates matches, and generates a points table based on the results. Match scores are determined randomly according to the power differences between teams.
