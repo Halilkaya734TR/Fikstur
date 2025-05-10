@@ -112,5 +112,5 @@ gcc -o fikstur.o fikstur.c
   
 ## Yenilikler 10.05.2025
 - Fonksiyonlar daha düzenli ve sıralı hale getirildi.
-- `.gitingore` ile `.txt` dosyaları gizlendi.
+- `.gitignore` ile `.txt` dosyaları gizlendi.
 - `makefile` dosyası eklendi.

@@ -112,5 +112,5 @@ Sample file format
   
 ## What's New 10.05.2025
 - Functions are more organized and ordered.
-- Hidden `.gitingore` and `.txt` files.
+- Hidden `.gitignore` and `.txt` files.
 - Added `makefile` file.
